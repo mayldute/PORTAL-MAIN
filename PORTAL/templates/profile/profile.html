@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/profile_styles.css' %}">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="container">
+        <header class="bg-cover d-flex align-items-center justify-content-center" style="background-image: url({% static 'img/les_tuman_chb_157928_1920x1080.jpg' %});">
+        </header>
+
+        <div class="profile-info">
+            <div class="username-container">
+                <h1>{{ request.user.username }}</h1>
+                <a href="{% url 'account_logout' %}" id="logout">
+                    <img src="{% static 'img/free-icon-log-out-7850714.png' %}" style="width: auto; height: 40px;">
+                </a>
+            </div>
+            <hr>
+            <h2>{{ request.user.email }}</h2>
+        </div>
+
+        <div class="upload-photo">
+            <a href="#" id="add-photo">Добавить фото</a>
+        </div>
+
+        <div class="links">
+            {% if is_not_author %}
+            <a href="upgrade/">Хочешь стать автором?</a><br><br>
+            {% endif %}
+            <button id="subscription" type="button">Хочешь оформить подписку?</button>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Оформление подписки</h3>
+                <div id="alert-message" class="alert" style="display: none;"></div>
+                <div id="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/profile_script.js' %}"></script>
+</body>
+</html>

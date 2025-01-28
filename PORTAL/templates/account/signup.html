@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'css/sign_styles.css' %}"> 
+    <title>SignUp</title>
+</head>
+<body>
+    <div class="container-form">
+        <div class="row-form">
+                <h2 class="row-title">Регистрация</h2>
+
+                <form method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <input type="text" class="form-control" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="row">
+                        <input type="email" class="form-control" name="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="row">
+                        <input type="password" class="form-control" name="password1" placeholder="Password" required>
+                    </div>
+                    <div class="row">
+                        <input type="password" class="form-control" name="password2" placeholder="Confirm pasword" required>
+                    </div>
+                    <div class="row">
+                        <button type="submit">Регистрация</button>
+                    </div>
+                    <div class="row">
+                        <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=0b86b97be71c4b60bc0b9080eb8cf4b4&redirect_uri=http://127.0.0.1:8000/accounts/yandex/login/callback" id="logo">
+                            <img src="{% static 'img/free-icon-yandex-5969001.png' %}" alt="Yandex Icon" style="width: auto; height: 30px;">
+                        </a>
+                        <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=493863275356-ki8iuetgbhvqf3bk7q36ibaolu3h1g1p.apps.googleusercontent.com&redirect_uri=http://127.0.0.1:8000/accounts/google/login/callback&response_type=code&scope=email%20profile" id="logo">
+                            <img src="{% static 'img/free-icon-google-2991147.png' %}" alt="Google Icon" style="width: auto; height: 30px;">
+                        </a>
+                    </div>
+                </form>
+        </div>
+        <div class="row-sign">
+            <a href="{% url 'account_login' %}" id="sign">Уже есть аккаунт?</a>
+        </div>
+    </div>
+</body>
+</html>
+

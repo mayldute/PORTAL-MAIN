@@ -1,0 +1,42 @@
+body {
+    background-image: url("/static/img/les_tuman_chb_157928_1920x1080.jpg");
+    background-color: #1E1E1E;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.row {
+    background-color: rgba(255, 255, 255, 0.67);
+    padding: 20px;
+    text-align: center;
+    border-radius: 13px;
+    margin-bottom: 20px;
+    width: 80vh;
+}
+
+.row-title {
+    color: black;
+    font-size: 5vh;
+    font-weight: 200;
+    margin-bottom: 5vh;
+}
+
+p {
+    font-weight: 200; 
+    padding-left: 4vh;
+    padding-right: 4vh;
+    margin-bottom: 6vh;
+    line-height: 1.5em;
+}
+
+
