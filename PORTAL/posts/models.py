@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import *
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.cache import cache
 
@@ -85,3 +85,4 @@ class Comment(models.Model):
 class UserCategorySubscription(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    

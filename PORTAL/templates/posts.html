@@ -9,6 +9,11 @@ POSTS
 
 
 {% block content %}
+    <form method="get">
+        {{ filterset.form }}
+        <input type="submit" value="Найти">
+    </form>
+    
     {% if posts %}
         {% for post in posts %}
             <h1>{{ post.title|censor }}</h1>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отмена подписки</title>
+</head>
+<body>
+    <h2>Ваши подписки</h2>
+    <form method="post" >
+        {% csrf_token %}
+        <label for="category">Выберите категорию для отписки:</label>
+        <select name="category_id" id="category">
+            {% for subscription in subscriptions %}
+                <option value="{{ subscription.category.id }}">{{ subscription.category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Отписаться</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>

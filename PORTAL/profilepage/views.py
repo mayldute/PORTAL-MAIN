@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CategorySubscriptionForm
 from posts.models import Category, UserCategorySubscription
 from django.http import JsonResponse, HttpResponse
+from posts.models import User
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -55,4 +56,30 @@ class SubscriptionView(LoginRequiredMixin, TemplateView):
             else:
                 return JsonResponse({'success': False, 'errors': form.errors})
 
+
+def cancel_subscription(request):
+    email = request.GET.get("email") 
+    
+    if not email:
+        return render(request, "profile/cancel_subscription.html", {"error": "Не указан email!"})
+    
+    user = get_object_or_404(User, email=email)
+    subscriptions = UserCategorySubscription.objects.filter(user=user)
+
+    if request.method == "POST":
+        category_id = request.POST.get("category_id")
+        if category_id:
+            UserCategorySubscription.objects.filter(user=user, category_id=category_id).delete()
+            return render(request, "profile/cancel_subscription.html", {
+                "subscriptions": subscriptions,
+                "message": "Подписка отменена!"
+            })
+
+    return render(request, "profile/cancel_subscription.html", {"subscriptions": subscriptions})
+
+def delete_account(request):
+    user = request.user
+
+    user.delete()
+    return redirect("posts")
  

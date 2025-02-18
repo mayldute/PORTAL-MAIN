@@ -14,6 +14,16 @@ class PostsList(ListView):
     context_object_name = 'posts'
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = PostFilter(data=self.request.GET, queryset=queryset)
+        return self.filterset.qs
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
+
 class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
@@ -28,23 +38,6 @@ class PostDetail(DetailView):
          cache.set(f'post-{self.kwargs["pk"]}', obj)
 
       return obj
-    
-class PostSearch(ListView):
-    model = Post
-    ordering = ['-create_time']
-    template_name = 'search.html'
-    context_object_name = 'search'
-    paginate_by = 10
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        self.filterset = PostFilter(data=self.request.GET, queryset=queryset)
-        return self.filterset.qs
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filterset'] = self.filterset
-        return context
 
 class CreatePost(LoginRequiredMixin, CreateView, PermissionRequiredMixin):
     permission_required = ('news.add_post')

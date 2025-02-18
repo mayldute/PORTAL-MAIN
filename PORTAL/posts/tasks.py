@@ -16,11 +16,13 @@ def notify_about_new_post(post_id, category):
         
     for user_email in unique_users_email:
         post_url = urljoin(settings.BASE_URL, reverse('post_detail', kwargs={'pk': post.id}))
+        unsubscribe_url = urljoin(settings.BASE_URL, reverse('cancel_subscription') + f"?email={user_email}")
             
         html_message = render_to_string('notify_about_new_post.html', {
             'title': post.title,
             'preview': post.preview(),
-            'post_url': post_url  
+            'post_url': post_url,
+            'unsubscribe_url': unsubscribe_url,
         })
             
         send_mail(
